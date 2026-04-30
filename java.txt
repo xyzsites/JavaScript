@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>JS Learning Lab · Variables · Functions · Arrays · Objects · If/Else</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0c2461, #1e3799, #4a69bd);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .main-wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .glass-card {
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-rotator {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .question-container {
+            display: inline-block;
+            min-width: 140px;
+        }
+
+        .rotating-word {
+            color: #f6b93b;
+            font-weight: 800;
+            text-shadow: 0 0 12px rgba(246, 185, 59, 0.6);
+            display: inline-block;
+            font-size: 2.8rem;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .static-text {
+            font-size: 2.8rem;
+            font-weight: 600;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.8rem 0 1rem;
+        }
+
+        button {
+            background: #f6b93b;
+            color: #0c2461;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        button:hover {
+            background: #ffd166;
+            transform: translateY(-2px);
+        }
+
+        .speed-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 1rem 0 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        input[type="range"] {
+            width: 200px;
+            cursor: pointer;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            border-left: 5px solid #f6b93b;
+            padding-left: 1rem;
+        }
+
+        .concept-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin: 1.5rem 0 1.2rem;
+        }
+
+        .concept-btn {
+            background: rgba(246, 185, 59, 0.2);
+            border: 1px solid #f6b93b;
+            color: #f6b93b;
+            box-shadow: none;
+        }
+
+        .concept-btn:hover {
+            background: #f6b93b;
+            color: #0c2461;
+        }
+
+        .demo-panel {
+            background: rgba(10, 20, 40, 0.7);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid #f6b93b;
+        }
+
+        .code-snippet {
+            background: #0f172ad9;
+            padding: 1rem;
+            border-radius: 1rem;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: #e2e8f0;
+            margin-bottom: 1rem;
+            border: 1px solid #2d3e6e;
+        }
+
+        .output-area {
+            background: #00000066;
+            padding: 1rem;
+            border-radius: 1rem;
+            font-size: 1rem;
+            font-family: monospace;
+            color: #cbd5e6;
+            margin-top: 0.8rem;
+        }
+
+        .try-zone {
+            background: #1e2b3c;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-top: 0.8rem;
+        }
+
+        .try-input {
+            background: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 40px;
+            margin: 6px 6px 0 0;
+            width: 180px;
+        }
+
+        .small-btn {
+            background: #f6b93b;
+            padding: 6px 14px;
+            font-size: 0.8rem;
+        }
+
+        .project-teaser {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .project-card {
+            background: #0f1a2b;
+            flex: 1;
+            border-radius: 1.2rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .footer-notes {
+            text-align: center;
+            font-size: 0.8rem;
+            margin-top: 2rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 700px) {
+            h1 .static-text, .rotating-word {
+                font-size: 1.9rem;
+            }
+            .question-container {
+                min-width: 110px;
+            }
+            .section-title {
+                font-size: 1.4rem;
+            }
+            .glass-card {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="main-wrapper">
+    <!-- ROTATOR SECTION -->
+    <div class="glass-card hero-rotator">
+        <h1>
+            <span class="static-text"></span>
+            <div class="question-container">
+                <span class="rotating-word pulse" id="rotating-word">Who</span>
+            </div>
+            <span class="static-text">JavaScript..?</span>
+        </h1>
+        <div class="controls">
+            <button id="pauseBtn"><i class="fas fa-pause"></i> Pause</button>
+            <button id="nextBtn"><i class="fas fa-forward"></i> Next Word</button>
+            <button id="shuffleBtn"><i class="fas fa-random"></i> Shuffle</button>
+        </div>
+        <div class="speed-control">
+            <label><i class="fas fa-tachometer-alt"></i> Speed:</label>
+            <input type="range" id="speedRange" min="1" max="10" value="5">
+            <span id="speedValue">3.0s</span>
+        </div>
+        <div class="history" style="margin-top: 10px; font-size:0.8rem;">
+            <i class="fas fa-lightbulb"></i> <span id="miniFact">JavaScript was born in 1995 (Brendan Eich)</span>
+        </div>
+    </div>
+
+    <!-- FOCUS LAB -->
+    <div class="glass-card focus-lab">
+        <div class="section-title">
+            <i class="fa-solid fa-flask"></i> FOCUS LAB
+            <span style="font-size:0.9rem; background:#f6b93b20; padding:4px 12px; border-radius:40px;">variables · functions · arrays · objects · if/else</span>
+        </div>
+        <p style="margin-bottom: 0.6rem;">⚡ Click any concept to see live examples. Then <strong>tweak values</strong> and see JavaScript in action!</p>
+
+        <div class="concept-buttons">
+            <button class="concept-btn" data-concept="vars"><i class="fas fa-code"></i> Variables</button>
+            <button class="concept-btn" data-concept="funcs"><i class="fas fa-cogs"></i> Functions</button>
+            <button class="concept-btn" data-concept="arrays"><i class="fas fa-list"></i> Arrays</button>
+            <button class="concept-btn" data-concept="objects"><i class="fas fa-database"></i> Objects</button>
+            <button class="concept-btn" data-concept="ifelse"><i class="fas fa-code-branch"></i> If/Else</button>
+        </div>
+
+        <div class="demo-panel" id="demoPanel">
+            <div id="codeDisplay" class="code-snippet">// Click any button to explore JavaScript fundamentals</div>
+            <div id="outputDisplay" class="output-area">📌 Output will appear here (also check browser console → console.log)</div>
+            <div id="interactiveZone" class="try-zone">
+                <i class="fas fa-mouse-pointer"></i> <strong>Try it yourself:</strong><br>
+                <span id="customControl"></span>
+            </div>
+        </div>
+
+        <div class="project-teaser">
+            <div class="project-card"><i class="fa-regular fa-hand-pointer"></i> <strong>① Magic Button</strong><br>Click event + text change</div>
+            <div class="project-card"><i class="fa-regular fa-rectangle-list"></i> <strong>② To-do List</strong><br>Array push/pop, dynamic DOM</div>
+            <div class="project-card"><i class="fa-regular fa-dice-d6"></i> <strong>③ Guessing Game</strong><br>Math.random, if/else logic</div>
+        </div>
+        <div class="footer-notes">
+            💡 Use <code style="background:#00000055; padding:2px 6px; border-radius:12px;">console.log()</code> constantly — right-click → Inspect → Console
+        </div>
+    </div>
+</div>
+
+<script>
+    // ========== ROTATOR MODULE ==========
+    const words = ["Who", "What", "Where", "Why"];
+    let currentIndex = 0;
+    let rotationInterval;
+    let speed = 3000;
+    let isPaused = false;
+
+    const rotatingWordSpan = document.getElementById('rotating-word');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const shuffleBtn = document.getElementById('shuffleBtn');
+    const speedRange = document.getElementById('speedRange');
+    const speedValueSpan = document.getElementById('speedValue');
+    const miniFactSpan = document.getElementById('miniFact');
+
+    const factsMap = {
+        "Who": "🌐 Who? Brendan Eich created JS in only 10 days in 1995.",
+        "What": "⚙️ What? JS is a high-level, dynamic language for web interactivity.",
+        "Where": "🌍 Where? Runs in browsers (V8, SpiderMonkey) & servers (Node.js).",
+        "Why": "🚀 Why? To make web pages alive — and now everywhere!"
+    };
+
+    function updateWordAnimation() {
+        rotatingWordSpan.style.opacity = '0';
+        rotatingWordSpan.style.transform = 'translateY(12px)';
+        setTimeout(() => {
+            rotatingWordSpan.textContent = words[currentIndex];
+            const currentWord = words[currentIndex];
+            miniFactSpan.innerHTML = factsMap[currentWord] || `✨ ${currentWord} powers the web!`;
+            rotatingWordSpan.style.opacity = '1';
+            rotatingWordSpan.style.transform = 'translateY(0)';
+            currentIndex = (currentIndex + 1) % words.length;
+        }, 220);
+    }
+
+    function startRotation() {
+        if (rotationInterval) clearInterval(rotationInterval);
+        rotationInterval = setInterval(() => {
+            if (!isPaused) updateWordAnimation();
+        }, speed);
+    }
+
+    function updateSpeedUI() {
+        const val = parseInt(speedRange.value, 10);
+        speed = 1000 + (10 - val) * 500;
+        speedValueSpan.textContent = (speed / 1000).toFixed(1) + 's';
+        if (!isPaused) startRotation();
+    }
+
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    pauseBtn.addEventListener('click', () => {
+        if (isPaused) {
+            isPaused = false;
+            pauseBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+            startRotation();
+            rotatingWordSpan.classList.add('pulse');
+        } else {
+            isPaused = true;
+            pauseBtn.innerHTML = '<i class="fas fa-play"></i> Resume';
+            clearInterval(rotationInterval);
+            rotatingWordSpan.classList.remove('pulse');
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (isPaused) {
+            rotatingWordSpan.style.opacity = '0';
+            setTimeout(() => {
+                rotatingWordSpan.textContent = words[currentIndex];
+                const w = words[currentIndex];
+                miniFactSpan.innerHTML = factsMap[w] || `✨ ${w} · JS core`;
+                rotatingWordSpan.style.opacity = '1';
+                currentIndex = (currentIndex + 1) % words.length;
+            }, 100);
+        } else {
+            updateWordAnimation();
+        }
+    });
+
+    shuffleBtn.addEventListener('click', () => {
+        shuffleArray(words);
+        currentIndex = 0;
+        rotatingWordSpan.textContent = words[0];
+        const w = words[0];
+        miniFactSpan.innerHTML = factsMap[w] || `✨ mixed: ${w}`;
+        shuffleBtn.innerHTML = '<i class="fas fa-check"></i> Shuffled!';
+        setTimeout(() => { shuffleBtn.innerHTML = '<i class="fas fa-random"></i> Shuffle'; }, 900);
+        if (!isPaused) startRotation();
+    });
+
+    speedRange.addEventListener('input', () => {
+        updateSpeedUI();
+        if (!isPaused) startRotation();
+    });
+
+    rotatingWordSpan.textContent = words[0];
+    miniFactSpan.innerHTML = factsMap["Who"];
+    startRotation();
+    updateSpeedUI();
+
+    // ========== FOCUS LAB: CORRECTED VARIABLES & CONCEPTS ==========
+    const codeDisplay = document.getElementById('codeDisplay');
+    const outputDisplay = document.getElementById('outputDisplay');
+    const customControlSpan = document.getElementById('customControl');
+
+    function renderConcept(conceptType) {
+        customControlSpan.innerHTML = '';
+        
+        if (conceptType === 'vars') {
+            // FIXED: Now shows "Alex loves JavaScript" consistently
+            codeDisplay.innerHTML = `// ✨ VARIABLES: Store data values\nlet learner = "Alex";\nconst language = "JavaScript";\nvar year = 2026;\nlet message = learner + " loves " + language;\nconsole.log(message); // "Alex loves JavaScript"`;
+            outputDisplay.innerHTML = `📌 Output: <strong>"Alex loves JavaScript"</strong><br>✅ Variables (let, const, var) store data. const can't be reassigned, let can.`;
+            customControlSpan.innerHTML = `<label>✏️ Change learner name: </label><input type="text" id="varInput" class="try-input" value="Alex"><button id="updateVarBtn" class="small-btn">Update message</button>`;
+            const updateBtn = document.getElementById('updateVarBtn');
+            if (updateBtn) {
+                updateBtn.addEventListener('click', () => {
+                    const newName = document.getElementById('varInput').value.trim() || "Coder";
+                    const newMessage = `${newName} loves JavaScript`;
+                    outputDisplay.innerHTML = `📌 Output: <strong>"${newMessage}"</strong><br>✅ Variables updated! The 'message' variable changed dynamically.`;
+                    console.log(`[Variables] message = "${newMessage}"`);
+                });
+            }
+        } 
+        else if (conceptType === 'funcs') {
+            codeDisplay.innerHTML = `// FUNCTIONS: reusable blocks\nfunction greetUser(name) {\n    return "Hello, " + name + "!";\n}\nconst double = (x) => x * 2;\nconsole.log(greetUser("JS Learner")); // "Hello, JS Learner!"`;
+            outputDisplay.innerHTML = `📌 Function example: greetUser("Marta") → <strong>"Hello, Marta!"</strong><br>✨ Arrow function: double(5) = 10. Functions = DRY, reusable code.`;
+            customControlSpan.innerHTML = `<label>🔧 Your name: </label><input id="funcName" class="try-input" value="Explorer"><button id="runFuncBtn" class="small-btn">Call function</button>`;
+            document.getElementById('runFuncBtn')?.addEventListener('click', () => {
+                const nameVal = document.getElementById('funcName').value.trim() || "friend";
+                const greeting = `Hello, ${nameVal}! Welcome to JS functions.`;
+                outputDisplay.innerHTML = `📌 Output: <strong>"${greeting}"</strong><br>✅ Function called with parameter — returns customized string.`;
+                console.log(`function invoked: greet -> ${greeting}`);
+            });
+        }
+        else if (conceptType === 'arrays') {
+            codeDisplay.innerHTML = `// ARRAYS: ordered lists\nlet jsTopics = ["variables", "functions", "arrays", "objects"];\njsTopics.push("if/else");\nlet first = jsTopics[0]; // "variables"\nconsole.log("Length:", jsTopics.length); // 5`;
+            outputDisplay.innerHTML = `📌 Array example: ["variables","functions","arrays","objects","if/else"]<br>📏 length = 5, first element = <strong>"variables"</strong>`;
+            let demoArray = ["variables", "functions", "arrays", "objects", "if/else"];
+            const updateArrayDisplay = () => {
+                outputDisplay.innerHTML = `📌 Current Array: [${demoArray.join(", ")}]<br>✅ .push() adds items, .pop() removes, .length gives count.`;
+            };
+            customControlSpan.innerHTML = `<label>➕ Add new topic: </label><input id="newTopic" class="try-input" placeholder="e.g., loops"><button id="addTopicBtn" class="small-btn">Push to array</button> <button id="showArrayBtn" class="small-btn">Show array</button>`;
+            document.getElementById('addTopicBtn')?.addEventListener('click', () => {
+                const newVal = document.getElementById('newTopic').value.trim();
+                if (newVal) { demoArray.push(newVal); updateArrayDisplay(); console.log(`array push: ${newVal}`); }
+                else alert("Enter a topic name");
+            });
+            document.getElementById('showArrayBtn')?.addEventListener('click', () => updateArrayDisplay());
+            updateArrayDisplay();
+        }
+        else if (conceptType === 'objects') {
+            codeDisplay.innerHTML = `// OBJECTS: key-value pairs\nlet jsCreator = {\n  name: "Brendan Eich",\n  year: 1995,\n  language: "JavaScript",\n  isAwesome: true\n};\nconsole.log(jsCreator.name + " created JS in " + jsCreator.year);`;
+            outputDisplay.innerHTML = `📌 Object: <strong>Brendan Eich created JavaScript in 1995</strong><br>🔑 Access with dot notation: obj.property`;
+            let creatorObj = { name: "Brendan Eich", year: 1995, language: "JavaScript", isAwesome: true };
+            const renderObj = () => {
+                outputDisplay.innerHTML = `📌 Current object: { name: "${creatorObj.name}", year: ${creatorObj.year}, language: "${creatorObj.language}", isAwesome: ${creatorObj.isAwesome} }<br>✅ Objects group related data.`;
+            };
+            customControlSpan.innerHTML = `<label>📝 Update property 'year': </label><input id="yearInput" type="number" class="try-input" value="1995"><button id="updateObjBtn" class="small-btn">Update year</button> <button id="showObjBtn" class="small-btn">Show object</button>`;
+            document.getElementById('updateObjBtn')?.addEventListener('click', () => {
+                const newYear = parseInt(document.getElementById('yearInput').value, 10);
+                if (!isNaN(newYear)) { creatorObj.year = newYear; renderObj(); console.log(`object year updated: ${newYear}`); }
+            });
+            document.getElementById('showObjBtn')?.addEventListener('click', () => renderObj());
+            renderObj();
+        }
+        else if (conceptType === 'ifelse') {
+            codeDisplay.innerHTML = `// IF/ELSE: decision making\nlet score = 85;\nif (score >= 90) {\n  grade = "A";\n} else if (score >= 70) {\n  grade = "B";\n} else {\n  grade = "C";\n}\nconsole.log("Grade:", grade); // "B"`;
+            outputDisplay.innerHTML = `📌 With score = 85 → Grade: <strong>B</strong><br>⚡ Conditions control program flow.`;
+            customControlSpan.innerHTML = `<label>🎯 Enter score (0-100): </label><input id="scoreInput" type="number" class="try-input" value="85"><button id="gradeBtn" class="small-btn">Evaluate Grade</button>`;
+            document.getElementById('gradeBtn')?.addEventListener('click', () => {
+                let rawScore = parseInt(document.getElementById('scoreInput').value, 10);
+                if (isNaN(rawScore)) rawScore = 0;
+                let grade = "";
+                if (rawScore >= 90) grade = "A+ (Excellent!)";
+                else if (rawScore >= 75) grade = "B (Good work)";
+                else if (rawScore >= 60) grade = "C (Keep practicing)";
+                else grade = "D/F (Review fundamentals: variables, functions, etc.)";
+                outputDisplay.innerHTML = `📌 Score: ${rawScore} → Grade: <strong>${grade}</strong><br>🔁 If/Else helps build game logic & validations.`;
+                console.log(`if/else evaluation: score=${rawScore} grade=${grade}`);
+            });
+        }
+    }
+
+    document.querySelectorAll('.concept-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const concept = btn.getAttribute('data-concept');
+            renderConcept(concept);
+        });
+    });
+
+    renderConcept('vars');
+    console.log("%c🔥 FOCUS LAB ACTIVE — Variables, Functions, Arrays, Objects, If/Else — Use console.log() everywhere!", "color:#f6b93b; font-size:1rem");
+</script>
+</body>
+</html>
+
+
